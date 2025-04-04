@@ -2,13 +2,15 @@ from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import requests
+import os
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///push_tokens.db'
 db = SQLAlchemy(app)
 
 # Basit API key koruması
-API_KEY = 'SECRET123'
+
+API_KEY = os.getenv("API_KEY")  # .env dosyasından al
 
 @app.before_request
 def check_api_key():
